@@ -11,16 +11,24 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+
+env:
+  IMAGE_NAME: hilellelshalem/simple-java-maven-app
+  VERSION_FILE: VERSION
 
 jobs:
-  build:
+  setup:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
