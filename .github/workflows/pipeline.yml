@@ -1,6 +1,6 @@
 name: Java CI with Maven
 
-${{ env.DOCKER_HELLO_IMAGE }}
+# ${{ env.DOCKER_HELLO_IMAGE }}
 
 on:
   push:
@@ -19,13 +19,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Update version
+    - name: Bump version
       id: bump
-      run: run: |
-        mvn release:update-versions -DautoVersionSubmodules=true # Update Version Include Submodules
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git commit -am "Update Version"
-        git push
+      uses: mickem/gh-action-bump-maven-version@v1.0.0
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml
