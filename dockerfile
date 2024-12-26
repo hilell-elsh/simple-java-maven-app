@@ -4,7 +4,7 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn -B clean package --file pom.xml
 
-FROM eclipse-temurin:17-jre-ubi9-minimal
+FROM openjdk:24-slim
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
-ENTRYPOINT [ "java" "-jar" "app.jar" ]  
+CMD [ "java" "-jar" "app.jar" ]  
